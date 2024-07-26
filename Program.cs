@@ -20,7 +20,6 @@ class Program
             ");
             Console.Write("Elija una opción => ");
             int option = Setting.InputInt("");
-
             switch (option)
             {
                 case 1:
@@ -32,7 +31,6 @@ class Program
                     4. Eliminar estudiante.
                     ");
                     int studentOption = Setting.InputInt("Elija una opción => ");
-
                     switch(studentOption)
                     {
                         case 1:
@@ -159,10 +157,26 @@ class Program
                             Setting.FinishOption();
                             break;
                         case 11:
+                            AdminApp.OrderTeachersBySalary();
+                            Setting.FinishOption();
+                            break;
                         case 12:
+                            AdminApp.AverageAgeStudents();
+                            Setting.FinishOption();
+                            break;
                         case 13:
+                            string courses = Setting.InputString("Ingresa el curso que desea filtrar => ");
+                            AdminApp.FilterTeacherToCourses(courses);
+                            Setting.FinishOption();
+                            break;
                         case 14:
+                            AdminApp.FilterStudentsGradeResgistered();
+                            Setting.FinishOption();
+                            break;
                         case 15:
+                            AdminApp.AverageHiringDateProfessors();
+                            Setting.FinishOption();
+                            break;
                         default:
                             Console.WriteLine("Opción no válida");
                             break;

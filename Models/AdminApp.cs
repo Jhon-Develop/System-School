@@ -543,7 +543,7 @@ namespace System_School.Models
                 }
             }
         }
-    
+
         public static void FilterByHiringDate(DateTime minimumHiringDate)
         {
             if (Teachers.Count == 0)
@@ -596,7 +596,7 @@ namespace System_School.Models
 
             Console.WriteLine($"Cursos disponibles: {string.Join(", ", courses)}");
         }
-    
+
         public static void FilterByName(string name)
         {
             if (Teachers.Count == 0) return;
@@ -665,6 +665,113 @@ namespace System_School.Models
             {
                 Console.WriteLine($"{teacher.GetName()} {teacher.GetLastName()} - Salary: {teacher.Salary:F2}");
             }
+        }
+
+        public static void AverageAgeStudents()
+        {
+            if (Students.Count == 0)
+            {
+                Console.WriteLine("No estudiantes disponibles.");
+                return;
+            }
+
+            double totalAge = 0;
+            int numberOfStudents = 0;
+
+            foreach (var student in Students)
+            {
+                totalAge += student.CalculateAge(student.FechaNacimiento);
+                numberOfStudents++;
+            }
+
+            if (numberOfStudents == 0)
+            {
+                Console.WriteLine("No hay estudiantes registrados.");
+                return;
+            }
+
+            Console.WriteLine($"Edad media de los estudiantes: {totalAge / numberOfStudents:F2}");
+        }
+
+        public static void FilterTeacherToCourses(string courses)
+        {
+            if (Teachers.Count == 0 || string.IsNullOrEmpty(courses)) return;
+
+            List<Teacher> filteredTeachers = [];
+
+            foreach (var teacher in Teachers)
+            {
+                if (teacher.Courses.Contains(courses))
+                {
+                    filteredTeachers.Add(teacher);
+                }
+            }
+
+            Console.WriteLine($"Profesores con curso {courses}:");
+            foreach (var teacher in filteredTeachers)
+            {
+                Console.WriteLine($"{teacher.GetName()} {teacher.GetLastName()}");
+            }
+        }
+
+        public static void FilterStudentsGradeResgistered()
+        {
+            if (Students.Count == 0)
+            {
+                Console.WriteLine("No estudiantes disponibles.");
+                return;
+            }
+
+            List<Student> filteredStudents = [];
+
+            foreach (var student in Students)
+            {
+                if (student.Grades.Count > 0)
+                {
+                    filteredStudents.Add(student);
+                }
+            }
+
+            if (filteredStudents.Count == 0)
+            {
+                Console.WriteLine($"No estudiantes con calificaciones registradas.");
+            }
+            else
+            {
+                Console.WriteLine($"Estudiantes con calificaciones registradas:");
+                foreach (var student in filteredStudents)
+                {
+                    double totalGrades = student.Grades.Sum();
+                    double average = totalGrades / student.Grades.Count;
+                    Console.WriteLine($"{student.GetName()} {student.GetLastName()} - Promedio de calificación: {average:F2}");
+                }
+            }
+        }
+    
+        public static void AverageHiringDateProfessors()
+        {
+            if (Teachers.Count == 0)
+            {
+                Console.WriteLine("No profesores disponibles.");
+                return;
+            }
+
+            double totalHiringDate = 0;
+            int numberOfProfessors = 0;
+
+            foreach (var teacher in Teachers)
+            {
+                totalHiringDate += teacher.HiringDate.Year;
+                numberOfProfessors++;
+            }
+
+            if (numberOfProfessors == 0)
+            {
+                Console.WriteLine("No hay profesores registrados.");
+                return;
+            }
+
+            Console.WriteLine($"Promedio de contratación: {totalHiringDate / numberOfProfessors:F2}");
         }
     }
 }

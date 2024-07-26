@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+#Setting
+Models/Settings.cs
+
 # dotenv files
 .env
 
